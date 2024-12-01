@@ -46,7 +46,7 @@ app.get('/foods/:id', async (req, res) =>
 
 app.get("/foods/:Id/edit", async (req, res) =>
 {
-  const food = await Food.findById(req.params.fruitId);
+  const food = await Food.findById(req.params.Id);
   res.render("foods/edit.ejs", { food });
 })
 
