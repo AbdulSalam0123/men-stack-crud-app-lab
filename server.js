@@ -6,7 +6,7 @@ const app= express();
 const port= 3000;
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 const methodOverride = require('method-override'); 
 app.use(methodOverride('_method'));
@@ -28,6 +28,7 @@ app.get("/foods/new", (req,res)=>
 app.post("/foods", async (req,res)=>
 {
     await Food.create(req.body);
+    console.log(req.body.name + req.body.description);
     res.redirect("/foods");
 });
 
@@ -40,10 +41,10 @@ app.get("/foods", async (req,res) =>
 app.get('/foods/:id', async (req, res) => 
 {
     const food = await Food.findById(req.params.id);
-    res.render('show', { food });
+    res.render('foods/show.ejs', { food });
 });
 
-app.get("/foods/:foodId/edit", async (req, res) =>
+app.get("/foods/:Id/edit", async (req, res) =>
 {
   const food = await Food.findById(req.params.fruitId);
   res.render("foods/edit.ejs", { food });
